@@ -28,6 +28,13 @@ public class GameService {
 		//TODO Tratamento de exceção para o caso não haver o objeto
 		return new GameDTO(result);
 	}
+
+	@Transactional(readOnly = true) //Garante a operação no banco de dados vai acontecer
+	public List<GameMinDTO> findByList(Long listId) {
+		var result = gameRepository.searchByList(listId);
+		//TODO Tratamento de exceção para o caso não haver o objeto
+		return result.stream().map(x -> new GameMinDTO(x)).toList();
+	}
 	
 	
 	
